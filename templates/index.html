@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Showroom Chatbot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #chatbox {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .input-group {
+            margin-top: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+        }
+
+        .appointment-form {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Car Showroom Assistant</h1>
+        <div class="card mt-3">
+            <div class="card-body">
+                <div id="chatbox" class="mb-3">
+                    <!-- Chat messages will appear here -->
+                </div>
+                <div class="input-group">
+                    <input type="text" id="userInput" class="form-control" placeholder="Ask me anything about cars...">
+                    <button id="sendBtn" class="btn btn-primary">Send</button>
+                </div>
+
+                <!-- Appointment Form -->
+                <div class="appointment-form mt-3">
+                    <h5>Schedule an Appointment</h5>
+                    <form id="appointmentForm">
+                        <div class="mb-3">
+                            <label for="appointmentDate" class="form-label">Select Date:</label>
+                            <input type="date" id="appointmentDate" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="appointmentTime" class="form-label">Select Time:</label>
+                            <select id="appointmentTime" class="form-control" required>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">1:00 PM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                                <option value="16:00">4:00 PM</option>
+                                <option value="17:00">5:00 PM</option>
+                                <option value="18:00">6:00 PM</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Schedule Appointment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Send button click event
+            $('#sendBtn').click(function () {
+                const userMessage = $('#userInput').val();
+                if (!userMessage) return;
+    
+                $('#chatbox').append(`<p><strong>You:</strong> ${userMessage}</p>`);
+    
+                $.ajax({
+                    url: '/chat',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ message: userMessage }),
+                    success: function (data) {
+                        $('#chatbox').append(`<p><strong>Bot:</strong> ${data.reply}</p>`);
+                        speakResponse(data.reply); // Speak bot response
+                        $('#userInput').val('');
+                        $('#chatbox').scrollTop($('#chatbox')[0].scrollHeight);
+    
+                        // Show appointment form if user wants to book appointment
+                        if (data.reply.includes("schedule the appointment")) {
+                            $(".appointment-form").show();
+                        }
+                    },
+                    error: function () {
+                        $('#chatbox').append('<p><strong>Bot:</strong> Something went wrong. Please try again later.</p>');
+                    }
+                });
+            });
+    
+            // Trigger "Send" when Enter is pressed
+            $('#userInput').on('keypress', function (event) {
+                if (event.which === 13) { // Enter key
+                    $('#sendBtn').click();
+                }
+            });
+    
+            // Submit appointment form
+            $('#appointmentForm').submit(function (event) {
+                event.preventDefault();
+    
+                const date = $('#appointmentDate').val();
+                const time = $('#appointmentTime').val();
+                const appointment = `${date} ${time}:00`;
+    
+                $.ajax({
+                    url: '/chat',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ message: `book appointment for ${appointment}` }),
+                    success: function (data) {
+                        $('#chatbox').append(`<p><strong>Bot:</strong> ${data.reply}</p>`);
+                        speakResponse(data.reply);
+                        $(".appointment-form").hide();
+                    },
+                    error: function () {
+                        $('#chatbox').append('<p><strong>Bot:</strong> Something went wrong. Please try again later.</p>');
+                    }
+                });
+            });
+    
+            // Function to speak bot response
+            function speakResponse(text) {
+                const speech = new SpeechSynthesisUtterance(text);
+                window.speechSynthesis.speak(speech);
+            }
+        });
+    </script>
+</body>
+</html>

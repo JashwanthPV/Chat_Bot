@@ -1,0 +1,40 @@
+[
+    {
+        "id": 1,
+        "name": "Toyota Camry",
+        "type": "New",
+        "price": "$24,000",
+        "details": "A reliable sedan with great fuel economy and modern features.",
+        "competitors": [
+            {
+                "name": "Honda Accord",
+                "price": "$23,500",
+                "features": "Sporty design, larger interior, higher resale value."
+            },
+            {
+                "name": "Nissan Altima",
+                "price": "$22,800",
+                "features": "Comfortable ride, spacious interior, good safety features."
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "BMW X5",
+        "type": "Used",
+        "price": "$45,000",
+        "details": "A luxury SUV with a powerful engine and premium interior.",
+        "competitors": [
+            {
+                "name": "Audi Q7",
+                "price": "$46,000",
+                "features": "Luxurious, spacious, advanced tech features."
+            },
+            {
+                "name": "Mercedes-Benz GLE",
+                "price": "$47,500",
+                "features": "Elegant design, excellent handling, premium materials."
+            }
+        ]
+    }
+]
