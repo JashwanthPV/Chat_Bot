@@ -2,14 +2,10 @@ from flask import Flask, render_template, request, jsonify
 import requests
 import json
 from datetime import datetime
-import os
-API_KEY = os.getenv("HUGGING_FACE_API_KEY")
 
 app = Flask(__name__)
 
 # Hugging Face API Configuration
-API_URL = ""
-HEADERS = {}
 API_URL = "https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium"
 HEADERS = {"Authorization": f"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"}
 
@@ -19,6 +15,7 @@ with open('data/cars.json') as f:
 
 # Appointment data structure
 appointments = []
+appointment_in_progress = False  # Flag to track appointment scheduling
 
 def query_huggingface(payload):
     response = requests.post(API_URL, headers=HEADERS, json=payload)
@@ -32,34 +29,17 @@ def index():
 # Route for Chatbot Interaction
 @app.route('/chat', methods=['POST'])
 def chat():
+    global appointment_in_progress  # Use the global flag
     user_message = request.json.get('message')
     if not user_message:
         return jsonify({"error": "No message received"}), 400
 
     # Check if the user is trying to book an appointment
     if "book appointment" in user_message.lower():
+        appointment_in_progress = True
         return jsonify({
-            "reply": "Sure! When would you like to schedule the appointment? Please provide the date and time."
+            "reply": "Sure! Please select the date and time for your appointment using the form below."
         })
-
-    # Collecting appointment details if requested
-    if "date" in user_message.lower() or "time" in user_message.lower():
-        try:
-            # Extract date and time from message
-            parts = user_message.split(' ')
-            date = parts[2]
-            time = parts[3]
-            appointment_time = f"{date} {time}"
-
-            # Convert to datetime object
-            appointment_datetime = datetime.strptime(appointment_time, "%Y-%m-%d %H:%M")
-            appointments.append({
-                "customer_message": user_message,
-                "appointment_time": appointment_datetime,
-            })
-            return jsonify({"reply": "Thank you"})
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
 
     # Check if the user is asking about a specific car
     for car in car_data:
@@ -75,6 +55,26 @@ def chat():
         response = query_huggingface(payload)
         bot_reply = response.get('generated_text', "I'm sorry, I couldn't process that.")
         return jsonify({"reply": bot_reply})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# Route for confirming appointment
+@app.route('/confirm_appointment', methods=['POST'])
+def confirm_appointment():
+    try:
+        data = request.json
+        date = data.get('date')
+        time = data.get('time')
+        appointment_time = f"{date} {time}:00"
+
+        # Convert to datetime object
+        appointment_datetime = datetime.strptime(appointment_time, "%Y-%m-%d %H:%M:%S")
+        appointments.append({
+            "appointment_time": appointment_datetime,
+        })
+        global appointment_in_progress
+        appointment_in_progress = False  # Reset the flag
+        return jsonify({"reply": "Thank you and we are excited to see you in your dream car"})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
