@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import requests
 import json
 from datetime import datetime
+import inflect
 
 app = Flask(__name__)
 
@@ -26,10 +27,28 @@ def query_huggingface(payload):
 def index():
     return render_template('index.html')
 
-# Route for Chatbot Interaction
+# Function to convert numbers to words, specifically handling Indian numbers
+def convert_to_indian_words(number):
+    p = inflect.engine()
+
+    # Handling special case for 'lakh' and 'crore'
+    if number >= 100000:
+        lakhs = number // 100000
+        if lakhs == 1:
+            return f"{lakhs} lakh"
+        else:
+            return f"{lakhs} lakhs"
+    else:
+        return p.number_to_words(number).replace(",", "")
+
+def clean_price(price):
+    """Fixes encoding issues and formats the price correctly."""
+    # Remove any unwanted characters (like â‚¹) and ensure proper rupee symbol
+    return price.replace("â‚¹", "₹").replace(",", "")
+
 @app.route('/chat', methods=['POST'])
 def chat():
-    global appointment_in_progress  # Use the global flag
+    global appointment_in_progress
     user_message = request.json.get('message')
     if not user_message:
         return jsonify({"error": "No message received"}), 400
@@ -44,9 +63,22 @@ def chat():
     # Check if the user is asking about a specific car
     for car in car_data:
         if car['name'].lower() in user_message.lower():
-            competitors = ', '.join([comp['name'] for comp in car['competitors']])
+            competitors = ''
+            for comp in car['competitors']:
+                # Clean competitor price and convert to words
+                competitor_price = clean_price(comp['price'])
+                competitor_numeric_price = int(competitor_price.replace("₹", ""))  # Remove ₹ for numeric value
+                competitor_price_in_words = convert_to_indian_words(competitor_numeric_price)
+                
+                competitors += f"{comp['name']} is priced at {competitor_price_in_words}, features: {comp['features']}. "
+
+            # Fix price and convert number to words for the main car
+            price = clean_price(car['price'])
+            numeric_price = int(price.replace("₹", "").replace(",", ""))  # Remove ₹ and commas for numeric value
+            price_in_words = convert_to_indian_words(numeric_price)
+
             return jsonify({
-                "reply": f"The {car['name']} is priced at {car['price']}. Details: {car['details']}. Competitors: {competitors}."
+                "reply": f"The {car['name']} is priced at {price_in_words}. Details: {car['details']}. Competitors: {competitors}"
             })
 
     # Default Chatbot behavior (fallback to Hugging Face)
