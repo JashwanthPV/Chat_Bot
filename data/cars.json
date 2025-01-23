@@ -1,40 +1,246 @@
 [
     {
         "id": 1,
-        "name": "Toyota Camry",
+        "name": "Tata Tiago",
         "type": "New",
-        "price": "$24,000",
-        "details": "A reliable sedan with great fuel economy and modern features.",
+        "price": "₹6,88,000",
+        "details": "A compact hatchback with a youthful design and great fuel efficiency.",
         "competitors": [
             {
-                "name": "Honda Accord",
-                "price": "$23,500",
-                "features": "Sporty design, larger interior, higher resale value."
+                "name": "Maruti Suzuki Alto",
+                "price": "₹6,50,000",
+                "features": "Compact, fuel-efficient, easy to drive."
             },
             {
-                "name": "Nissan Altima",
-                "price": "$22,800",
-                "features": "Comfortable ride, spacious interior, good safety features."
+                "name": "Hyundai Santro",
+                "price": "₹6,72,000",
+                "features": "Stylish design, good mileage, modern features."
             }
         ]
     },
     {
         "id": 2,
-        "name": "BMW X5",
-        "type": "Used",
-        "price": "$45,000",
-        "details": "A luxury SUV with a powerful engine and premium interior.",
+        "name": "Tata Tigor",
+        "type": "New",
+        "price": "₹8,36,000",
+        "details": "A stylish sedan with advanced safety features and a comfortable ride.",
         "competitors": [
             {
-                "name": "Audi Q7",
-                "price": "$46,000",
-                "features": "Luxurious, spacious, advanced tech features."
+                "name": "Honda Amaze",
+                "price": "₹8,10,000",
+                "features": "Spacious interior, good fuel economy, advanced safety."
             },
             {
-                "name": "Mercedes-Benz GLE",
-                "price": "$47,500",
-                "features": "Elegant design, excellent handling, premium materials."
+                "name": "Datsun Redi-GO",
+                "price": "₹7,98,000",
+                "features": "Compact, budget-friendly, good mileage."
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Tata Altroz",
+        "type": "New",
+        "price": "₹10,32,000",
+        "details": "A premium hatchback with a sleek design and modern features.",
+        "competitors": [
+            {
+                "name": "Maruti Suzuki Baleno",
+                "price": "₹9,84,000",
+                "features": "Stylish design, spacious interior, good fuel efficiency."
+            },
+            {
+                "name": "Hyundai i20",
+                "price": "₹10,44,000",
+                "features": "Modern design, advanced tech, comfortable ride."
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Tata Nexon",
+        "type": "New",
+        "price": "₹12,96,000",
+        "details": "A compact SUV with a bold design and robust safety features.",
+        "competitors": [
+            {
+                "name": "Maruti Suzuki Vitara Brezza",
+                "price": "₹12,24,000",
+                "features": "Compact SUV, good mileage, strong safety features."
+            },
+            {
+                "name": "Hyundai Venue",
+                "price": "₹12,48,000",
+                "features": "Stylish design, good features, compact size."
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Tata Safari",
+        "type": "New",
+        "price": "₹17,28,000",
+        "details": "A full-size SUV with luxurious interiors, advanced safety features, and powerful performance.",
+        "competitors": [
+            {
+                "name": "Mahindra XUV500",
+                "price": "₹16,86,000",
+                "features": "Spacious, powerful engine, good safety features."
+            },
+            {
+                "name": "Toyota Fortuner",
+                "price": "₹18,36,000",
+                "features": "Luxurious, strong performance, advanced tech."
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Tata Harrier",
+        "type": "New",
+        "price": "₹15,84,000",
+        "details": "A stylish SUV with a premium feel and advanced features.",
+        "competitors": [
+            {
+                "name": "Hyundai Tucson",
+                "price": "₹15,36,000",
+                "features": "Luxurious design, advanced tech, spacious interior."
+            },
+            {
+                "name": "Kia Seltos",
+                "price": "₹15,48,000",
+                "features": "Modern design, good features, compact size."
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Tata Nexon EV",
+        "type": "New",
+        "price": "₹14,40,000",
+        "details": "An electric SUV with impressive range and eco-friendly features.",
+        "competitors": [
+            {
+                "name": "Mahindra eXUV300",
+                "price": "₹14,08,000",
+                "features": "Compact electric SUV, good range, advanced safety."
+            },
+            {
+                "name": "Hyundai Kona Electric",
+                "price": "₹14,88,000",
+                "features": "Luxurious design, long range, advanced tech."
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Tata Punch",
+        "type": "New",
+        "price": "₹11,76,000",
+        "details": "A compact SUV with a quirky design and modern features.",
+        "competitors": [
+            {
+                "name": "Maruti Suzuki Ignis",
+                "price": "₹11,28,000",
+                "features": "Stylish design, good mileage, compact size."
+            },
+            {
+                "name": "Hyundai Casper",
+                "price": "₹11,44,000",
+                "features": "Modern design, good features, compact size."
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Tata Manza",
+        "type": "New",
+        "price": "₹9,60,000",
+        "details": "A mid-size sedan with a spacious interior and good fuel economy.",
+        "competitors": [
+            {
+                "name": "Honda City",
+                "price": "₹9,36,000",
+                "features": "Spacious interior, good fuel economy, advanced safety."
+            },
+            {
+                "name": "Toyota Yaris",
+                "price": "₹9,84,000",
+                "features": "Luxurious design, smooth ride, advanced tech."
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Tata Indica",
+        "type": "New",
+        "price": "₹8,40,000",
+        "details": "A compact sedan with a classic design and reliable performance.",
+        "competitors": [
+            {
+                "name": "Maruti Suzuki Celerio",
+                "price": "₹8,08,000",
+                "features": "Compact, fuel-efficient, easy to drive."
+            },
+            {
+                "name": "Hyundai Eon",
+                "price": "₹8,16,000",
+                "features": "Stylish design, good mileage, modern features."
+            }
+        ]
+    },
+    {
+        "id": 11,
+        "name": "Tata Aria",
+        "type": "New",
+        "price": "₹13,20,000",
+        "details": "A premium MPV with a spacious interior and advanced features.",
+        "competitors": [
+            {
+                "name": "Toyota Innova",
+                "price": "₹13,44,000",
+                "features": "Spacious, reliable, good safety features."
+            },
+            {
+                "name": "Mahindra Marazzo",
+                "price": "₹13,28,000",
+                "features": "Spacious, good fuel economy, advanced safety."
+            }
+        ]
+    },
+    {
+        "id": 12,
+        "name": "Tata Zest",
+        "type": "New",
+        "price": "₹9,12,000",
+        "details": "A stylish compact sedan with good fuel efficiency and modern features.",
+        "competitors": [
+            {
+                "name": "Honda Amaze",
+                "price": "₹8,90,000",
+                "features": "Spacious interior, good fuel economy, advanced safety."
+            },
+            {
+                "name": "Datsun Redi-GO",
+                "price": "₹9,00,000",
+                "features": "Compact, budget-friendly, good mileage."
+            }
+        ]
+    },
+    {
+        "id": 13,
+        "name": "Tata Nano",
+        "type": "New",
+        "price": "₹2,00,000",
+        "details": "A compact city car known for its affordable price and efficient fuel economy.",
+        "competitors": [
+            {
+                "name": "MG Comet",
+                "price": "₹8,00,000",
+                "features": "Compact, electric, easy to drive, eco-friendly."
             }
         ]
     }
+    
 ]
+    
